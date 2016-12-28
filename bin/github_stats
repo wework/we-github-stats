@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "we/github_stats"
+
+cli = We::GitHubStats::Cli.new
+cli.parse(ARGV)
+exit cli.run

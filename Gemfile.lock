@@ -1,0 +1,60 @@
+PATH
+  remote: .
+  specs:
+    we-github-stats (0.1.0)
+      faraday-http-cache (~> 2.0)
+      octokit (~> 4.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
+    byebug (9.0.5)
+    coderay (1.1.1)
+    diff-lcs (1.2.5)
+    faraday (0.10.0)
+      multipart-post (>= 1.2, < 3)
+    faraday-http-cache (2.0.0)
+      faraday (~> 0.8)
+    method_source (0.8.2)
+    multipart-post (2.0.0)
+    octokit (4.6.2)
+      sawyer (~> 0.8.0, >= 0.5.3)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.4.0)
+      byebug (~> 9.0)
+      pry (~> 0.10)
+    public_suffix (2.0.4)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
+    sawyer (0.8.1)
+      addressable (>= 2.3.5, < 2.6)
+      faraday (~> 0.8, < 1.0)
+    slop (3.6.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.12)
+  pry-byebug
+  rspec (~> 3.0)
+  we-github-stats!
+
+BUNDLED WITH
+   1.13.6
