@@ -134,9 +134,9 @@ module We
           total_lines_removed = subtotals.map { |r| r[:num_lines_removed].to_i }.reduce(:+)
 
           puts "==== Total ===="
-          puts "Total Commits: #{total_commits}"
-          puts "Total Lines Added: #{total_lines_added}"
-          puts "Total Lines Removed: #{total_lines_removed}"
+          puts "Commits: #{total_commits}"
+          puts "Lines Added: #{total_lines_added}"
+          puts "Lines Removed: #{total_lines_removed}"
           return OK
 
         elsif @options.format == 'csv'
