@@ -1,13 +1,17 @@
+require 'date'
 require 'optparse'
 require 'octokit'
 require 'faraday-http-cache'
-require 'date'
+require 'terminal-table'
 
 module We
   module GitHubStats
     class Cli
+      OK = 1
+      NOPE = 0
+
       class ScriptOptions
-        attr_accessor :access_token, :organization
+        attr_accessor :access_token, :organization, :format
 
         def initialize
           @format = 'console'
@@ -33,7 +37,7 @@ module We
           end
 
           parser.on(
-            "-f", "--format",
+            "-f", "--format console",
             "How should it be output? Supported: console,csv"
           ) do |f|
             @format = f
@@ -79,7 +83,7 @@ module We
 
       def error(msg)
         puts msg
-        return 0
+        return NOPE
       end
 
       def run
@@ -96,7 +100,7 @@ module We
         subtotals = organization.repos.map do |repo|
           begin
             repo_stats = {
-              repo: repo.name,
+              name: repo.name,
               num_commits: repo.num_commits,
               num_lines_added: repo.num_lines_added,
               num_lines_removed: repo.num_lines_removed,
@@ -114,19 +118,34 @@ module We
           puts "Please wait a few minutes and try again. In the meantime, the stats for other repos is..."
         end
 
-        total_commits = subtotals.map { |r| r[:num_commits].to_i }.reduce(:+)
-        total_lines_added = subtotals.map { |r| r[:num_lines_added].to_i }.reduce(:+)
-        total_lines_removed = subtotals.map { |r| r[:num_lines_removed].to_i }.reduce(:+)
+        if @options.format == 'console'
 
-        puts "==== Repositories ===="
-        subtotals.each { |s| puts "#{s[:repo]},#{s[:num_commits]},#{s[:num_lines_added]},#{s[:num_lines_removed]}" }
+          puts "==== Repositories ===="
 
-        puts "==== Total ===="
-        puts "Total Commits: #{total_commits}"
-        puts "Total Lines Added: #{total_lines_added}"
-        puts "Total Lines Removed: #{total_lines_removed}"
+          rows = subtotals.map { |r| [r[:name], r[:num_commits].to_i, r[:num_lines_added].to_i, r[:num_lines_removed].to_i] }
 
-        return 1
+          puts Terminal::Table.new(
+            headings: ['Name', 'Commits', 'Lines Added', 'Lines Removed'],
+            rows: rows
+          )
+
+          total_commits = subtotals.map { |r| r[:num_commits].to_i }.reduce(:+)
+          total_lines_added = subtotals.map { |r| r[:num_lines_added].to_i }.reduce(:+)
+          total_lines_removed = subtotals.map { |r| r[:num_lines_removed].to_i }.reduce(:+)
+
+          puts "==== Total ===="
+          puts "Total Commits: #{total_commits}"
+          puts "Total Lines Added: #{total_lines_added}"
+          puts "Total Lines Removed: #{total_lines_removed}"
+          return OK
+
+        elsif @options.format == 'csv'
+          puts 'Name, Commits, Lines Added, Lines Removed'
+          subtotals.each { |s| puts "#{s[:name]},#{s[:num_commits]},#{s[:num_lines_added]},#{s[:num_lines_removed]}" }
+          return OK
+        end
+
+        return error("Unknown output format selected")
       end
     end
   end

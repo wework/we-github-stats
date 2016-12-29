@@ -3,12 +3,13 @@ module We
     class Repository
       class InProgressError < StandardError; end
 
-      def initialize(client, name)
+      def initialize(client:, name:, full_name:)
         @client = client
+        @full_name = full_name
         @name = name
       end
 
-      attr_reader :name
+      attr_reader :name, :full_name
 
       def num_commits
         fetch_commit_activity && fetch_commit_activity.map(&:total).inject(:+)
@@ -28,7 +29,7 @@ module We
 
       def fetch_commit_activity
         @fetch_commit_activity ||= begin
-          client.commit_activity_stats(name).tap do
+          client.commit_activity_stats(full_name).tap do
             raise InProgressError if stats_building?
             raise "PANIC!" if error?
           end
@@ -37,7 +38,7 @@ module We
 
       def fetch_code_frequency
         @fetch_code_frequency ||= begin
-          data = client.code_frequency_stats(name)
+          data = client.code_frequency_stats(full_name)
 
           raise InProgressError if stats_building?
           raise "PANIC!" if error?

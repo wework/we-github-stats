@@ -2,8 +2,9 @@ PATH
   remote: .
   specs:
     we-github-stats (0.1.0)
-      faraday-http-cache (~> 2.0)
+      faraday-http-cache
       octokit (~> 4.0)
+      terminal-table
 
 GEM
   remote: https://rubygems.org/
@@ -46,6 +47,9 @@ GEM
       addressable (>= 2.3.5, < 2.6)
       faraday (~> 0.8, < 1.0)
     slop (3.6.0)
+    terminal-table (1.7.3)
+      unicode-display_width (~> 1.1.1)
+    unicode-display_width (1.1.2)
 
 PLATFORMS
   ruby

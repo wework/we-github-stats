@@ -9,7 +9,7 @@ module We
       def repos
         @repos ||= begin
           client.org_repos(name).compact.reject(&:fork).map do |repo|
-            Repository.new(client, repo.full_name)
+            Repository.new(client: client, name: repo.name, full_name: repo.full_name)
           end
         end
       end
