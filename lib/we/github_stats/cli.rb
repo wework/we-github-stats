@@ -115,7 +115,7 @@ module We
         if incomplete != []
           puts "Warning: The following stats are not ready on the GitHub API:"
           incomplete.each { |repo_name| puts "\t- #{repo_name}" }
-          puts "Please wait a few minutes and try again. In the meantime, the stats for other repos is..."
+          puts "Please wait a few minutes and try again. In the meantime, the stats for other repos are..."
         end
 
         if @options.format == 'console'
