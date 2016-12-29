@@ -113,7 +113,7 @@ module We
         end.compact
 
         if incomplete != []
-          puts "ERROR! The following stats are not ready on the GitHub API:"
+          puts "Warning: The following stats are not ready on the GitHub API:"
           incomplete.each { |repo_name| puts "\t- #{repo_name}" }
           puts "Please wait a few minutes and try again. In the meantime, the stats for other repos is..."
         end
