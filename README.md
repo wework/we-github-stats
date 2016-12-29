@@ -37,7 +37,7 @@ ERROR! The following stats are not ready on the GitHub API:
  - careday-app
  - eslint-config-wework
  - we-github-stats
-Please wait a few minutes and try again. In the meantime, the stats for other repos is...
+Please wait a few minutes and try again. In the meantime, the stats for other repos are...
 
 ==== Repositories ====
 +---------------+---------+-------------+---------------+
